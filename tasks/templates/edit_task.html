@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card shadow p-4">
+        <h2 class="text-center text-warning mb-4">Edit Task</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="4" required>{{ task.description }}</textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Priority</label>
+                    <select name="priority" class="form-select">
+                        <option value="High" {% if task.priority == "High" %}selected{% endif %}>High</option>
+                        <option value="Medium" {% if task.priority == "Medium" %}selected{% endif %}>Medium</option>
+                        <option value="Low" {% if task.priority == "Low" %}selected{% endif %}>Low</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="Pending" {% if task.status == "Pending" %}selected{% endif %}>Pending</option>
+                        <option value="In Progress" {% if task.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                        <option value="Completed" {% if task.status == "Completed" %}selected{% endif %}>Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4">Update Task</button>
+                <a href="{% url 'task_list' %}" class="btn btn-secondary px-4">Back</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
